@@ -31,8 +31,5 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getPopularCryptoValues()
-        viewModel.cryptoValue.observe(viewLifecycleOwner, Observer {
-            tvText.text = it?.name
-        })
     }
 }

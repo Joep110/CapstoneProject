@@ -13,7 +13,7 @@ class CryptoValueViewModel(application: Application): AndroidViewModel(applicati
 
     private val cryptoValueRepository = CryptoValueRepository()
 
-    val cryptoValue =  cryptoValueRepository.cryptoValue
+    val cryptoValues =  cryptoValueRepository.getAllCryptoValues()
 
     private val _errorText: MutableLiveData<String> = MutableLiveData()
 

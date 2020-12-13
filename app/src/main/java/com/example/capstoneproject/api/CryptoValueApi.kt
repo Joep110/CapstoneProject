@@ -15,9 +15,12 @@ class CryptoValueApi {
 
     companion object {
         private const val baseUrl = "https://pro-api.coinmarketcap.com"
+        private val apiKey = "5e247100-80e1-4e74-99f9-3641950b61cb"
 
         fun createApi() : CryptoValueApiService {
-            val okHttpClient = OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor()
+            val okHttpClient = OkHttpClient.Builder().addInterceptor { chain -> chain.request().newBuilder().addHeader("X-CMC_PRO_API_KEY", apiKey).build()
+                .let(chain::proceed)
+            }.addInterceptor(HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY)).build()
 
             val cryptoValueApi = Retrofit.Builder()

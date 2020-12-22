@@ -28,9 +28,5 @@ class CryptoValueRepository {
 
     }
 
-    fun getAllCryptoValues(): List<CryptoValue>? {
-        return _cryptoValue.value?.data
-    }
-
     class CryptoValueRefreshError(message: String, cause: Throwable) : Throwable(message, cause)
 }

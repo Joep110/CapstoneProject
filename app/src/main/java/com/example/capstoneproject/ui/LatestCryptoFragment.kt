@@ -43,12 +43,13 @@ class LatestCryptoFragment : Fragment() {
         rvCryptoValues.adapter = cryptoAdapter
         rvCryptoValues.layoutManager = GridLayoutManager(context, 1)
         cryptoAdapter.notifyDataSetChanged()
+        observeCryptoValues()
     }
 
     private fun observeCryptoValues() {
         viewModel.cryptoValues.observe(viewLifecycleOwner) { logs ->
             this.cryptoValues.clear()
-            this.cryptoValues.addAll(logs)
+            this.cryptoValues.addAll(logs.data)
             cryptoAdapter.notifyDataSetChanged()
         }
     }

@@ -33,7 +33,10 @@ class LatestCryptoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        refreshLayout.setOnRefreshListener {
+            viewModel.getPopularCryptoValues()
+            observeCryptoValues()
+        }
         viewModel.getPopularCryptoValues()
         initViews()
     }
@@ -51,6 +54,7 @@ class LatestCryptoFragment : Fragment() {
             this.cryptoValues.clear()
             this.cryptoValues.addAll(logs.data)
             cryptoAdapter.notifyDataSetChanged()
+            refreshLayout.isRefreshing = false
         }
     }
 }

@@ -33,7 +33,16 @@ data class CryptoValue(
     @SerializedName("circulating_supply") var circulating_supply: String,
     @SerializedName("total_supply") var total_supply: String,
     @SerializedName("cmc_rank") var cmc_rank: String,
-    @SerializedName("last_updated") var last_updated: String
+    @SerializedName("last_updated") var last_updated: String,
+    @SerializedName("quote") var qoute: Qoute
+)
+
+data class Qoute(
+    @SerializedName("USD") var USD: USD
+)
+
+data class USD(
+    @SerializedName("price") var price: String
 )
 
 data class Tag(

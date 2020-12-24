@@ -6,13 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.capstoneproject.R
+import com.example.capstoneproject.model.CryptoValue
+import kotlinx.android.synthetic.main.fragment_latest_crypto.*
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class PopularCryptoFragment : Fragment() {
+    private var cryptoValues: ArrayList<CryptoValue> = arrayListOf()
+
+    private lateinit var cryptoAdapter: CryptoAdapter
+
+    private val viewModel: CryptoValueViewModel by activityViewModels()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -25,8 +35,28 @@ class PopularCryptoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.button_second).setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        refreshLayout.setOnRefreshListener {
+            viewModel.getPopularCryptoValues()
+            observeCryptoValues()
+        }
+        viewModel.getPopularCryptoValues()
+        initViews()
+    }
+
+    private fun initViews() {
+        cryptoAdapter = CryptoAdapter(cryptoValues)
+        rvCryptoValues.adapter = cryptoAdapter
+        rvCryptoValues.layoutManager = GridLayoutManager(context, 1)
+        cryptoAdapter.notifyDataSetChanged()
+        observeCryptoValues()
+    }
+
+    private fun observeCryptoValues() {
+        viewModel.cryptoValues.observe(viewLifecycleOwner) { logs ->
+            this.cryptoValues.clear()
+            this.cryptoValues.addAll(logs.data)
+            cryptoAdapter.notifyDataSetChanged()
+            refreshLayout.isRefreshing = false
         }
     }
 }

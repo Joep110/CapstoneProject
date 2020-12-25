@@ -1,17 +1,17 @@
 package com.example.capstoneproject.ui
 
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
-import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import com.example.capstoneproject.R
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
+    private lateinit var navController: NavController
     private val viewModel: CryptoValueViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,9 +19,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        navController = findNavController(R.id.nav_host_fragment)
+
+        bottom_navigation.setOnNavigationItemSelectedListener  {item ->
+            when(item.itemId) {
+                R.id.popular -> {
+                    navController.navigate(R.id.action_latestCryptoFragment_to_popularCryptoFragment)
+                    true
+                }
+                R.id.recent -> {
+                    navController.navigate(R.id.action_popularCryptoFragment_to_latestCryptoFragment)
+                    true
+                }
+                else -> false
+            }
         }
     }
 
@@ -36,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
+
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }

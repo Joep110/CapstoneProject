@@ -6,6 +6,6 @@
         android:title="Popular"/>
     <item
         android:id="@+id/recent"
-        android:enabled="false"
+        android:enabled="true"
         android:title="Recent"/>
 </menu>

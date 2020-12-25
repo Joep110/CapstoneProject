@@ -3,7 +3,6 @@ package com.example.capstoneproject.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.capstoneproject.api.CryptoValueApi
-import com.example.capstoneproject.model.CryptoValue
 import com.example.capstoneproject.model.CryptoValues
 import com.example.capstoneproject.service.CryptoValueApiService
 import kotlinx.coroutines.withTimeout

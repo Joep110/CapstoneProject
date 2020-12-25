@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.capstoneproject.repository.CryptoValueRepository
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeout
 
 class CryptoValueViewModel(application: Application): AndroidViewModel(application) {
 

@@ -1,14 +1,10 @@
 package com.example.capstoneproject.api
 
-import android.content.ContentValues
-import android.net.Uri
 import com.example.capstoneproject.service.CryptoValueApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
-import java.net.URISyntaxException
 
 
 class CryptoValueApi {

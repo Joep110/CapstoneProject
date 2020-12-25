@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.capstoneproject.R
 import com.example.capstoneproject.model.CryptoValue
 import kotlinx.android.synthetic.main.item_card_crypto.view.*
-import java.text.SimpleDateFormat
 
 class CryptoAdapter(private val cryptoValues: List<CryptoValue>) : RecyclerView.Adapter<CryptoAdapter.ViewHolder>() {
 

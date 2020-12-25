@@ -9,6 +9,7 @@ import androidx.core.view.get
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.capstoneproject.R
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -21,27 +22,30 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
 
         navController = findNavController(R.id.nav_host_fragment)
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.bottom_navigation_menu, menu)
+        bottom_navigation.selectedItemId = R.id.recent
         bottom_navigation.setOnNavigationItemSelectedListener  {item ->
             when(item.itemId) {
                 R.id.popular -> {
+                    bottom_navigation.menu.findItem(R.id.recent).isEnabled = true
+                    bottom_navigation.menu.findItem(R.id.popular).isEnabled = false
                     navController.navigate(R.id.action_latestCryptoFragment_to_popularCryptoFragment)
-                    item.isEnabled = false
                     true
                 }
                 R.id.recent -> {
-                    menu.findItem(R.id.popular).isEnabled = true
-                    item.isEnabled = false
+                    bottom_navigation.menu.findItem(R.id.recent).isEnabled = false
+                    bottom_navigation.menu.findItem(R.id.popular).isEnabled = true
                     navController.navigate(R.id.action_popularCryptoFragment_to_latestCryptoFragment)
                     true
                 }
                 else -> false
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.bottom_navigation_menu, menu)
         return true
     }
 

@@ -12,7 +12,6 @@ class CryptoAdapter(private val cryptoValues: List<CryptoValue>) : RecyclerView.
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun databind(game: CryptoValue) {
-            println(game.qoute.USD)
             itemView.tvCryptoName.text = game.name
             itemView.tvCryptoPrice.text = game.qoute.USD.price
         }

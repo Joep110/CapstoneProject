@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.core.view.get
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.capstoneproject.R
@@ -20,25 +21,27 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
 
         navController = findNavController(R.id.nav_host_fragment)
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.bottom_navigation_menu, menu)
         bottom_navigation.setOnNavigationItemSelectedListener  {item ->
             when(item.itemId) {
                 R.id.popular -> {
                     navController.navigate(R.id.action_latestCryptoFragment_to_popularCryptoFragment)
+                    item.isEnabled = false
                     true
                 }
                 R.id.recent -> {
+                    menu.findItem(R.id.popular).isEnabled = true
+                    item.isEnabled = false
                     navController.navigate(R.id.action_popularCryptoFragment_to_latestCryptoFragment)
                     true
                 }
                 else -> false
             }
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
@@ -47,7 +50,6 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }

@@ -1,16 +1,18 @@
 package com.example.capstoneproject.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.capstoneproject.R
 import com.example.capstoneproject.model.CryptoValue
 import kotlinx.android.synthetic.main.fragment_latest_crypto.*
+
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -38,6 +40,18 @@ class LatestCryptoFragment : Fragment() {
         }
         viewModel.getLatestCryptoValues()
         initViews()
+        this.context?.let {
+            ArrayAdapter.createFromResource(
+                    it,
+                R.array.currencies,
+                android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spinner.adapter = adapter
+        }
+        }
     }
 
     private fun initViews() {

@@ -36,10 +36,10 @@ class LatestCryptoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         refreshLayout.setOnRefreshListener {
-            viewModel.getLatestCryptoValues()
+            viewModel.getLatestCryptoValues(currencyConverter(spinner.selectedItem.toString()))
             observeCryptoValues()
         }
-        viewModel.getLatestCryptoValues()
+        viewModel.getLatestCryptoValues("USD")
         initViews()
         this.context?.let {
             ArrayAdapter.createFromResource(
@@ -60,7 +60,11 @@ class LatestCryptoFragment : Fragment() {
                     position: Int,
                     id: Long
             ) {
-                viewModel.getLatestCryptoValues()
+
+                val selectedItem = parent.getItemAtPosition(position)
+
+                viewModel.getLatestCryptoValues(currencyConverter(selectedItem as String))
+                observeCryptoValues()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
@@ -82,5 +86,16 @@ class LatestCryptoFragment : Fragment() {
             cryptoAdapter.notifyDataSetChanged()
             refreshLayout.isRefreshing = false
         }
+    }
+
+    private fun currencyConverter(selectedItem: String): String {
+        var currency = "USD"
+        when(selectedItem) {
+            "Euro" -> {
+                currency = "EUR"
+
+            }
+        }
+        return currency
     }
 }

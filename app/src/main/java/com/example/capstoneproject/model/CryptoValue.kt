@@ -38,11 +38,16 @@ data class CryptoValue(
 )
 
 data class Qoute(
-    @SerializedName("USD") var USD: USD
+    @SerializedName("USD") var USD: USD,
+    @SerializedName("EUR") var EUR: EUR
 )
 
 data class USD(
     @SerializedName("price") var price: String
+)
+
+data class EUR(
+        @SerializedName("price") var price: String
 )
 
 data class Tag(

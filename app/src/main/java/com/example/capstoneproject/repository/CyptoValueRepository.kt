@@ -15,10 +15,10 @@ class CryptoValueRepository {
     val cryptoValue: LiveData<CryptoValues>
         get() = _cryptoValue
 
-    suspend fun getLatestCurrencies() {
+    suspend fun getLatestCurrencies(convert: String) {
         try {
             val result = withTimeout(5_000) {
-                cryptoValueApiService.getLatestCryptoValues()
+                cryptoValueApiService.getLatestCryptoValues(2, convert)
             }
             _cryptoValue.value = result
         } catch (error: Throwable) {

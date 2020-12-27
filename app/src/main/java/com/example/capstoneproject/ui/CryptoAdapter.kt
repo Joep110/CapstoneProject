@@ -15,6 +15,8 @@ class CryptoAdapter(private val cryptoValues: List<CryptoValue>) : RecyclerView.
             itemView.tvCryptoName.text = game.name
             if (game.qoute.USD !== null) {
                 itemView.tvCryptoPrice.text = game.qoute.USD.price
+            } else if (game.qoute.EUR !== null) {
+                itemView.tvCryptoPrice.text = game.qoute.EUR.price
             }
         }
     }

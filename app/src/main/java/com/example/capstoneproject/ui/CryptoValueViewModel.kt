@@ -29,10 +29,10 @@ class CryptoValueViewModel(application: Application): AndroidViewModel(applicati
         }
     }
 
-    fun getPopularCryptoValues() {
+    fun getPopularCryptoValues(convert: String) {
         viewModelScope.launch {
             try {
-                cryptoValueRepository.getPopularCryptoValues()
+                cryptoValueRepository.getPopularCryptoValues(convert)
             } catch (error: CryptoValueRepository.CryptoValueRefreshError) {
                 _errorText.value = error.message
             }

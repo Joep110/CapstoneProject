@@ -9,6 +9,6 @@ interface CryptoValueApiService {
     @GET("/v1/cryptocurrency/listings/latest?")
     suspend fun getLatestCryptoValues(@Query("limit") limit: Int, @Query("convert") convert: String): CryptoValues
 
-    @GET("/v1/cryptocurrency/listings/latest?limit=20")
-    suspend fun getPopularCryptoValues(): CryptoValues
+    @GET("/v1/cryptocurrency/listings/latest?")
+    suspend fun getPopularCryptoValues(@Query("limit") limit: Int, @Query("convert") convert: String): CryptoValues
 }

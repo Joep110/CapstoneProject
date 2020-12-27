@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
@@ -34,11 +36,39 @@ class PopularCryptoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         refreshLayout.setOnRefreshListener {
-            viewModel.getPopularCryptoValues()
+            viewModel.getPopularCryptoValues(currencyConverter(spinner.selectedItem.toString()))
             observeCryptoValues()
         }
-        viewModel.getPopularCryptoValues()
+        viewModel.getPopularCryptoValues("USD")
         initViews()
+        this.context?.let {
+            ArrayAdapter.createFromResource(
+                    it,
+                    R.array.currencies,
+                    android.R.layout.simple_spinner_item
+            ).also { adapter ->
+                // Specify the layout to use when the list of choices appears
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                // Apply the adapter to the spinner
+                spinner.adapter = adapter
+            }
+        }
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+            ) {
+
+                val selectedItem = parent.getItemAtPosition(position)
+
+                viewModel.getPopularCryptoValues(currencyConverter(selectedItem as String))
+                observeCryptoValues()
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
     }
 
     private fun initViews() {
@@ -56,5 +86,16 @@ class PopularCryptoFragment : Fragment() {
             cryptoAdapter.notifyDataSetChanged()
             refreshLayout.isRefreshing = false
         }
+    }
+
+    private fun currencyConverter(selectedItem: String): String {
+        var currency = "USD"
+        when(selectedItem) {
+            "Euro" -> {
+                currency = "EUR"
+
+            }
+        }
+        return currency
     }
 }

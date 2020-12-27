@@ -27,10 +27,10 @@ class CryptoValueRepository {
 
     }
 
-    suspend fun getPopularCryptoValues() {
+    suspend fun getPopularCryptoValues(convert: String) {
         try {
             val result = withTimeout(5_00) {
-                cryptoValueApiService.getPopularCryptoValues()
+                cryptoValueApiService.getPopularCryptoValues(2, convert)
             }
             _cryptoValue.value = result
         } catch (error: Throwable) {

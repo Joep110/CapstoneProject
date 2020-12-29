@@ -12,6 +12,8 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.capstoneproject.R
 import com.example.capstoneproject.model.CryptoValue
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_latest_crypto.*
 
 
@@ -37,6 +39,11 @@ class LatestCryptoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         refreshLayout.setOnRefreshListener {
             viewModel.getLatestCryptoValues(currencyConverter(spinner.selectedItem.toString()))
+            Snackbar.make(
+                    root_layout,
+                    "Reloaded view",
+                    Snackbar.LENGTH_SHORT
+            ).show()
             observeCryptoValues()
         }
         viewModel.getLatestCryptoValues("USD")
@@ -64,6 +71,11 @@ class LatestCryptoFragment : Fragment() {
                 val selectedItem = parent.getItemAtPosition(position)
 
                 viewModel.getLatestCryptoValues(currencyConverter(selectedItem as String))
+                Snackbar.make(
+                        root_layout,
+                        "Changed currency",
+                        Snackbar.LENGTH_SHORT
+                ).show()
                 observeCryptoValues()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {

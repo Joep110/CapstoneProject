@@ -12,6 +12,7 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.capstoneproject.R
 import com.example.capstoneproject.model.CryptoValue
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_latest_crypto.*
 
@@ -40,12 +41,12 @@ class PopularCryptoFragment : Fragment() {
             viewModel.getPopularCryptoValues(currencyConverter(spinner.selectedItem.toString()))
             Snackbar.make(
                     root_layout,
-                    "Reloaded view",
+                    getString(R.string.Reloaded_view),
                     Snackbar.LENGTH_SHORT
             ).show()
             observeCryptoValues()
         }
-        viewModel.getPopularCryptoValues("USD")
+        viewModel.getPopularCryptoValues(getString(R.string.USD))
         initViews()
         this.context?.let {
             ArrayAdapter.createFromResource(
@@ -72,7 +73,7 @@ class PopularCryptoFragment : Fragment() {
                 viewModel.getPopularCryptoValues(currencyConverter(selectedItem as String))
                 Snackbar.make(
                         root_layout,
-                        "Changed currency",
+                        getString(R.string.Changed_currency),
                         Snackbar.LENGTH_SHORT
                 ).show()
                 observeCryptoValues()
@@ -86,6 +87,7 @@ class PopularCryptoFragment : Fragment() {
         rvCryptoValues.adapter = cryptoAdapter
         rvCryptoValues.layoutManager = GridLayoutManager(context, 1)
         cryptoAdapter.notifyDataSetChanged()
+        filterIcon.setOnClickListener { toggleFilters() }
         observeCryptoValues()
     }
 
@@ -99,17 +101,36 @@ class PopularCryptoFragment : Fragment() {
     }
 
     private fun currencyConverter(selectedItem: String): String {
-        var currency = "USD"
+        var currency = getString(R.string.USD)
         when(selectedItem) {
-            "Euro" -> {
-                currency = "EUR"
+            getString(R.string.Euro) -> {
+                currency = getString(R.string.EUR)
 
             }
         }
         return currency
     }
 
+    private fun toggleFilters() {
+        val sheetBehavior = BottomSheetBehavior.from(contentLayout)
+        if (sheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            filterIcon.setImageDrawable(resources.getDrawable(R.drawable.baseline_expand_more_black_18dp))
+        } else {
+            sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            filterIcon.setImageDrawable(resources.getDrawable(R.drawable.baseline_expand_less_black_18dp))
+        }
+    }
+
     private fun itemClicked(cryptoValue: CryptoValue) {
-        println(cryptoValue)
+        loadBackDrop(cryptoValue)
+    }
+
+    private fun loadBackDrop(cryptoValue: CryptoValue) {
+        CryptoTitle.text = cryptoValue.name
+        CryptoSymbol.text = cryptoValue.symbol
+        CryptoSlug.text = cryptoValue.slug
+        CryptoCmsRank.text = cryptoValue.cmc_rank
+        toggleFilters()
     }
 }

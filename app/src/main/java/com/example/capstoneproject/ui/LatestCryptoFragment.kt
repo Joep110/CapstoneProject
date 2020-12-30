@@ -42,12 +42,12 @@ class LatestCryptoFragment : Fragment() {
             viewModel.getLatestCryptoValues(currencyConverter(spinner.selectedItem.toString()), getSelectedSort())
             Snackbar.make(
                     root_layout,
-                    "Reloaded view",
+                    getString(R.string.Reloaded_view),
                     Snackbar.LENGTH_SHORT
             ).show()
             observeCryptoValues()
         }
-        viewModel.getLatestCryptoValues("USD", getSelectedSort())
+        viewModel.getLatestCryptoValues(getString(R.string.USD), getSelectedSort())
         initViews()
         this.context?.let {
             ArrayAdapter.createFromResource(
@@ -74,7 +74,7 @@ class LatestCryptoFragment : Fragment() {
                 viewModel.getLatestCryptoValues(currencyConverter(selectedItem as String), getSelectedSort())
                 Snackbar.make(
                         root_layout,
-                        "Changed currency",
+                        getString(R.string.Changed_currency),
                         Snackbar.LENGTH_SHORT
                 ).show()
                 observeCryptoValues()
@@ -106,17 +106,17 @@ class LatestCryptoFragment : Fragment() {
 
     private fun getSelectedSort(): String {
         return if (radioGroup.checkedRadioButtonId == R.id.percent_change_24h) {
-            "percent_change_24h"
+            getString(R.string.percent_change_24h)
         } else {
-            "percent_change_7d"
+            getString(R.string.percent_change_7d)
         }
     }
 
     private fun currencyConverter(selectedItem: String): String {
-        var currency = "USD"
+        var currency = getString(R.string.USD)
         when(selectedItem) {
-            "Euro" -> {
-                currency = "EUR"
+            getString(R.string.Euro) -> {
+                currency = getString(R.string.EUR)
 
             }
         }

@@ -17,6 +17,13 @@
     <string name="crypto_symbol">Crypto Symbol:</string>
     <string name="crypto_slug">Crypto slug</string>
     <string name="crypto_cms_rank">Crypto cms rank:</string>
+    <string name="percent_change_24h">percent_change_24h</string>
+    <string name="percent_change_7d">percent_change_7d</string>
+    <string name="USD">USD</string>
+    <string name="Euro">Euro</string>
+    <string name="EUR">EUR</string>
+    <string name="Changed_currency">Changed currency</string>
+    <string name="Reloaded_view">Reloaded view</string>
     <string-array name="currencies">
         <item>Dollar</item>
         <item>Euro</item>

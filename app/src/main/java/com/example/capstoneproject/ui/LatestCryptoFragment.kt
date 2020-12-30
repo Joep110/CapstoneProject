@@ -12,6 +12,7 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.capstoneproject.R
 import com.example.capstoneproject.model.CryptoValue
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_latest_crypto.*
@@ -22,9 +23,7 @@ import kotlinx.android.synthetic.main.fragment_latest_crypto.*
  */
 class LatestCryptoFragment : Fragment() {
     private var cryptoValues: ArrayList<CryptoValue> = arrayListOf()
-
     private val cryptoAdapter = CryptoAdapter(cryptoValues) { cryptoValue: CryptoValue -> itemClicked(cryptoValue) }
-
     private val viewModel: CryptoValueViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -122,7 +121,24 @@ class LatestCryptoFragment : Fragment() {
         return currency
     }
 
+    private fun toggleFilters() {
+        val sheetBehavior = BottomSheetBehavior.from(contentLayout)
+        if (sheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            sheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        } else {
+            sheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        }
+    }
+
     private fun itemClicked(cryptoValue: CryptoValue) {
-        println(cryptoValue.name)
+        loadBackDrop(cryptoValue)
+    }
+
+    private fun loadBackDrop(cryptoValue: CryptoValue) {
+        CryptoTitle.text = cryptoValue.name
+        CryptoSymbol.text = cryptoValue.symbol
+        CryptoSlug.text = cryptoValue.slug
+        CryptoCmsRank.text = cryptoValue.cmc_rank
+        toggleFilters()
     }
 }

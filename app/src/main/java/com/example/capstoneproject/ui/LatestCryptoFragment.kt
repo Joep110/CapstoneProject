@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
@@ -90,6 +91,7 @@ class LatestCryptoFragment : Fragment() {
         rvCryptoValues.adapter = cryptoAdapter
         rvCryptoValues.layoutManager = GridLayoutManager(context, 1)
         cryptoAdapter.notifyDataSetChanged()
+        filterIcon.setOnClickListener { toggleFilters() }
         observeCryptoValues()
     }
 
@@ -124,9 +126,11 @@ class LatestCryptoFragment : Fragment() {
     private fun toggleFilters() {
         val sheetBehavior = BottomSheetBehavior.from(contentLayout)
         if (sheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-            sheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+            sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            filterIcon.setImageDrawable(resources.getDrawable(R.drawable.baseline_expand_more_black_18dp))
         } else {
-            sheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+            sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            filterIcon.setImageDrawable(resources.getDrawable(R.drawable.baseline_expand_less_black_18dp))
         }
     }
 

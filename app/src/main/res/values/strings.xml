@@ -9,6 +9,14 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="crypto_name">Crypto name:</string>
+    <string name="select_a_coin_to_see_more_information">Select a coin to see more information</string>
+    <string name="cryptocurrency">CryptoCurrency</string>
+    <string name="percentage_change_24h">Percentage change 24h</string>
+    <string name="percentage_change_7d">Percentage change 7d</string>
+    <string name="crypto_symbol">Crypto Symbol:</string>
+    <string name="crypto_slug">Crypto slug</string>
+    <string name="crypto_cms_rank">Crypto cms rank:</string>
     <string-array name="currencies">
         <item>Dollar</item>
         <item>Euro</item>

@@ -37,8 +37,9 @@ class LatestCryptoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        percent_change_24h.isChecked = true
         refreshLayout.setOnRefreshListener {
-            viewModel.getLatestCryptoValues(currencyConverter(spinner.selectedItem.toString()))
+            viewModel.getLatestCryptoValues(currencyConverter(spinner.selectedItem.toString()), getSelectedSort())
             Snackbar.make(
                     root_layout,
                     "Reloaded view",
@@ -46,7 +47,7 @@ class LatestCryptoFragment : Fragment() {
             ).show()
             observeCryptoValues()
         }
-        viewModel.getLatestCryptoValues("USD")
+        viewModel.getLatestCryptoValues("USD", getSelectedSort())
         initViews()
         this.context?.let {
             ArrayAdapter.createFromResource(
@@ -70,7 +71,7 @@ class LatestCryptoFragment : Fragment() {
 
                 val selectedItem = parent.getItemAtPosition(position)
 
-                viewModel.getLatestCryptoValues(currencyConverter(selectedItem as String))
+                viewModel.getLatestCryptoValues(currencyConverter(selectedItem as String), getSelectedSort())
                 Snackbar.make(
                         root_layout,
                         "Changed currency",
@@ -80,6 +81,9 @@ class LatestCryptoFragment : Fragment() {
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
+        }
+        radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            viewModel.getLatestCryptoValues(currencyConverter(spinner.selectedItem.toString()), getSelectedSort())
         }
     }
 
@@ -97,6 +101,14 @@ class LatestCryptoFragment : Fragment() {
             this.cryptoValues.addAll(logs.data)
             cryptoAdapter.notifyDataSetChanged()
             refreshLayout.isRefreshing = false
+        }
+    }
+
+    private fun getSelectedSort(): String {
+        return if (radioGroup.checkedRadioButtonId == R.id.percent_change_24h) {
+            "percent_change_24h"
+        } else {
+            "percent_change_7d"
         }
     }
 

@@ -17,12 +17,30 @@
         android:spinnerMode="dropdown"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:checkedButton="@+id/radio_button_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+        <RadioButton
+            android:id="@+id/percent_change_24h"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Percentage change 24h"/>
+        <RadioButton
+            android:id="@+id/percent_change_7d"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Percentage change 7d"/>
+    </RadioGroup>
+
     <!--Swipe Refresh Layout -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="120dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 

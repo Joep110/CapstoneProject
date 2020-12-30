@@ -19,10 +19,10 @@ class CryptoValueViewModel(application: Application): AndroidViewModel(applicati
     val errorText: LiveData<String>
         get() = _errorText
 
-    fun getLatestCryptoValues(convert: String) {
+    fun getLatestCryptoValues(convert: String, sort: String) {
         viewModelScope.launch {
             try {
-                cryptoValueRepository.getLatestCurrencies(convert)
+                cryptoValueRepository.getLatestCurrencies(convert, sort)
             } catch (error: CryptoValueRepository.CryptoValueRefreshError) {
                 _errorText.value = error.message
             }

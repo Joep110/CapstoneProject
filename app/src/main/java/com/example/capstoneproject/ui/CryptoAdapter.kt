@@ -8,18 +8,19 @@ import com.example.capstoneproject.R
 import com.example.capstoneproject.model.CryptoValue
 import kotlinx.android.synthetic.main.item_card_crypto.view.*
 
-class CryptoAdapter(private val cryptoValues: List<CryptoValue>) : RecyclerView.Adapter<CryptoAdapter.ViewHolder>() {
+class CryptoAdapter(private val cryptoValues: List<CryptoValue>, private val clickListener: (CryptoValue) -> Unit) : RecyclerView.Adapter<CryptoAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun databind(game: CryptoValue) {
-            itemView.tvCryptoName.text = game.name
-            if (game.qoute.USD !== null) {
-                itemView.tvCryptoPrice.text = game.qoute.USD.price
+        fun databind(cryptoValue: CryptoValue) {
+            itemView.tvCryptoName.text = cryptoValue.name
+            if (cryptoValue.qoute.USD !== null) {
+                itemView.tvCryptoPrice.text = cryptoValue.qoute.USD.price
                 itemView.tvCryptoCurrency.text = "$"
-            } else if (game.qoute.EUR !== null) {
-                itemView.tvCryptoPrice.text = game.qoute.EUR.price
+            } else if (cryptoValue.qoute.EUR !== null) {
+                itemView.tvCryptoPrice.text = cryptoValue.qoute.EUR.price
                 itemView.tvCryptoCurrency.text = "€"
             }
+            itemView.setOnClickListener{ clickListener(cryptoValue)}
         }
     }
 

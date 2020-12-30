@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_latest_crypto.*
 class PopularCryptoFragment : Fragment() {
     private var cryptoValues: ArrayList<CryptoValue> = arrayListOf()
 
-    private lateinit var cryptoAdapter: CryptoAdapter
+    private val cryptoAdapter = CryptoAdapter(cryptoValues) { cryptoValue: CryptoValue -> itemClicked(cryptoValue) }
 
     private val viewModel: CryptoValueViewModel by activityViewModels()
 
@@ -83,7 +83,6 @@ class PopularCryptoFragment : Fragment() {
     }
 
     private fun initViews() {
-        cryptoAdapter = CryptoAdapter(cryptoValues)
         rvCryptoValues.adapter = cryptoAdapter
         rvCryptoValues.layoutManager = GridLayoutManager(context, 1)
         cryptoAdapter.notifyDataSetChanged()
@@ -108,5 +107,9 @@ class PopularCryptoFragment : Fragment() {
             }
         }
         return currency
+    }
+
+    private fun itemClicked(cryptoValue: CryptoValue) {
+        println(cryptoValue)
     }
 }

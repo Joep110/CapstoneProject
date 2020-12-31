@@ -3,9 +3,11 @@
     <item
         android:id="@+id/popular"
         android:enabled="true"
+        android:icon="@drawable/baseline_home_black_18dp"
         android:title="Popular"/>
     <item
         android:id="@+id/recent"
         android:enabled="false"
+        android:icon="@drawable/baseline_trending_up_black_18dp"
         android:title="Recent"/>
 </menu>

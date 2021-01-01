@@ -82,7 +82,7 @@ class LatestCryptoFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
-        radioGroup.setOnCheckedChangeListener { group, checkedId ->
+        radioGroup.setOnCheckedChangeListener { _, _ ->
             viewModel.getLatestCryptoValues(currencyConverter(spinner.selectedItem.toString()), getSelectedSort())
         }
     }
@@ -127,10 +127,10 @@ class LatestCryptoFragment : Fragment() {
         val sheetBehavior = BottomSheetBehavior.from(contentLayout)
         if (sheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            filterIcon.setImageDrawable(resources.getDrawable(R.drawable.baseline_expand_more_black_18dp))
+            filterIcon.setImageDrawable(resources.getDrawable(R.drawable.baseline_expand_more_black_18dp, null))
         } else {
             sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            filterIcon.setImageDrawable(resources.getDrawable(R.drawable.baseline_expand_less_black_18dp))
+            filterIcon.setImageDrawable(resources.getDrawable(R.drawable.baseline_expand_less_black_18dp, null))
         }
     }
 

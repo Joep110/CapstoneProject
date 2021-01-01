@@ -31,6 +31,7 @@
             <TextView
                 android:id="@+id/tvCryptoCurrency"
                 style="@style/TextAppearance.MaterialComponents.Body2"
+                android:text="@string/dollar_sign"
                 android:layout_width="20dp"
                 android:layout_height="wrap_content" />
 

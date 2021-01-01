@@ -24,6 +24,7 @@
     <string name="EUR">EUR</string>
     <string name="Changed_currency">Changed currency</string>
     <string name="Reloaded_view">Reloaded view</string>
+    <string name="dollar_sign">$</string>
     <string-array name="currencies">
         <item>Dollar</item>
         <item>Euro</item>
